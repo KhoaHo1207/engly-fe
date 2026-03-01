@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Nunito } from "next/font/google";
 import "./globals.css";
+import Header from "../components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const nunito = Nunito({
+  subsets: ["latin", "vietnamese"], // Rất quan trọng để không bị lỗi font tiếng Việt
+  weight: ["300", "400", "500", "600", "700"], // Chọn các độ đậm cần thiết
+  variable: "--font-nunito", // Đặt tên biến CSS (hữu ích nếu dùng Tailwind)
+  display: "swap", // Giúp hiển thị chữ ngay lập tức trước khi tải xong font
 });
 
 const geistMono = Geist_Mono({
@@ -24,9 +32,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={nunito.className}>
+        <Header />
         {children}
       </body>
     </html>
