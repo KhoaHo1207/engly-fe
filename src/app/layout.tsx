@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Nunito } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
+import Background from "../components/Background";
+import ServiceSection from "../components/ServiceSection";
+import AboutSection from "../components/AboutUs";
+import CourseCategory from "../components/CourseCategory";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +38,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={nunito.className}>
         <Header />
+        <Background />
+        <ServiceSection />
+        <AboutSection />
+        <CourseCategory />
         {children}
       </body>
     </html>
