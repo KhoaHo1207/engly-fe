@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Nunito } from "next/font/google";
 import "./globals.css";
-import Header from "../components/Header";
-import Background from "../components/Background";
-import ServiceSection from "../components/ServiceSection";
-import AboutSection from "../components/AboutUs";
-import CourseCategory from "../components/CourseCategory";
+import Header from "../components/Homepage/Header";
+import Background from "../components/Homepage/Background";
+import ServiceSection from "../components/Homepage/ServiceSection";
+import AboutSection from "../components/Homepage/AboutUs";
+import CourseCategory from "../components/Homepage/CourseCategory";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

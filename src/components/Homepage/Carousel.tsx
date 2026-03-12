@@ -13,6 +13,7 @@ export default function Carousel({ images }: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()]);
 
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
+
   const scrollNext = () => emblaApi && emblaApi.scrollNext();
 
   return (

@@ -1,6 +1,7 @@
 import React from "react";
 import Carousel from "./Carousel";
 
+
 const Background = () => {
   // Danh sách ảnh bạn muốn hiển thị
   const myImages = ["/bg1.jpg", "/bg2.jpg"];
