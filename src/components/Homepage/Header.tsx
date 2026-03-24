@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 const navItems = [
   { label: "HOME", href: "#" },
   { label: "ABOUT", href: "#" },
@@ -43,12 +44,12 @@ const Header = () => {
         </nav>
 
         {/* Join Now Button */}
-        <a
-          href="#"
+        <Link
+          href="/login"
           className="hidden md:flex items-center gap-2 ml-auto bg-[#06bbcc] hover:bg-[#05a5b5] text-white font-bold text-sm px-8 h-full transition-colors"
         >
           Join Now <ArrowRight size={16} />
-        </a>
+        </Link>
 
         {/* Mobile Hamburger */}
         <button
@@ -75,13 +76,13 @@ const Header = () => {
                 {item.hasDropdown && <ChevronDown size={14} />}
               </a>
             ))}
-            <a
-              href="#"
+            <Link
+              href="/login"
               className="mx-6 my-4 bg-[#06bbcc] text-white text-center font-bold py-3 hover:bg-[#05a5b5] transition-colors flex items-center justify-center gap-2"
               onClick={() => setMenuOpen(false)}
             >
               Join Now <ArrowRight size={16} />
-            </a>
+            </Link>
           </nav>
         </div>
       )}
