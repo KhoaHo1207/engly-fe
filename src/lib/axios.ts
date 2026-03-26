@@ -13,7 +13,7 @@ apiClient.interceptors.request.use(
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("access_token");
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization =         `Bearer ${token}`;
       }
     }
     return config;
@@ -26,8 +26,11 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token hết hạn hoặc không hợp lệ
-      if (typeof window !== "undefined") {
+      // Không redirect nếu đang gọi API login (để form tự xử lý lỗi)
+      const requestUrl = error.config?.url || "";
+      const isAuthEndpoint = requestUrl.includes("/auth/login") || requestUrl.includes("/auth/register");
+
+      if (!isAuthEndpoint && typeof window !== "undefined") {
         localStorage.removeItem("access_token");
         window.location.href = "/login";
       }
