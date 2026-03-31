@@ -22,11 +22,12 @@ export default function LoginPage() {
 
     try {
       const response = await authService.login({ email, password });
-      localStorage.setItem("access_token", response.data.access_token);
-      router.push("/");
+      localStorage.setItem("access_token", response.data.accessToken);
+      localStorage.setItem("user", JSON.stringify(response.data.user.email));
+      router.push("/course-selection");
     } catch (err: any) {
       setError(
-        err.response?.data?.message || "Đăng nhập thất bại. Vui lòng thử lại."
+        err.response?.data?.message || "Đăng nhập thất bại. Vui lòng thử lại.",
       );
     } finally {
       setLoading(false);
