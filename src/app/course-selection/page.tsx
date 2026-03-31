@@ -81,14 +81,14 @@ export default function CourseSelectionPage() {
         }}
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-16 md:py-24">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10 md:py-12">
         {/* Hero */}
-        <div ref={heroRef} className="text-center mb-14 md:mb-20">
-          <p className="text-[0.6875rem] font-medium tracking-[0.12em] uppercase text-[#787774] mb-4">
+        <div ref={heroRef} className="text-center mb-6 sm:mb-8 md:mb-10">
+          <p className="text-[0.6875rem] font-medium tracking-[0.12em] uppercase text-[#787774] mb-2 sm:mb-4">
             Step 1 of 2
           </p>
           <h1
-            className="text-[2.25rem] md:text-[3.25rem] font-medium text-[#111111] leading-[1.1] tracking-tight m-0"
+            className="text-[1.75rem] sm:text-[2.25rem] md:text-[2.75rem] font-medium text-[#111111] leading-[1.1] tracking-tight m-0"
             style={{
               fontFamily:
                 "'Newsreader', 'Playfair Display', 'Instrument Serif', serif",
@@ -97,7 +97,7 @@ export default function CourseSelectionPage() {
             Your Learning{" "}
             <em className="text-[#06bbcc] not-italic">Path</em>
           </h1>
-          <p className="text-[#787774] text-[0.9375rem] leading-relaxed mt-4 max-w-lg mx-auto">
+          <p className="text-[#787774] text-[0.8125rem] sm:text-[0.9375rem] leading-relaxed mt-2 sm:mt-3 max-w-lg mx-auto">
             Select the specialized track that aligns with your professional or
             academic ambitions.
           </p>
@@ -113,7 +113,7 @@ export default function CourseSelectionPage() {
         {/* Course Cards */}
         <div
           ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16 md:mb-24"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6 mb-6 sm:mb-8 md:mb-10"
         >
           {COURSES.map((course, idx) => (
             <div
@@ -125,7 +125,7 @@ export default function CourseSelectionPage() {
               }}
             >
               {/* Image */}
-              <div className="relative h-52 md:h-60 overflow-hidden">
+              <div className="relative h-36 sm:h-44 md:h-48 overflow-hidden">
                 <img
                   src={course.image}
                   alt={course.title}
@@ -156,10 +156,10 @@ export default function CourseSelectionPage() {
               </div>
 
               {/* Body */}
-              <div className="p-6 md:p-8">
+              <div className="p-4 sm:p-5 md:p-6">
                 {/* Tag */}
                 <span
-                  className="inline-block text-[0.6875rem] font-medium uppercase tracking-[0.05em] px-2.5 py-1 mb-4"
+                  className="inline-block text-[0.6875rem] font-medium uppercase tracking-[0.05em] px-2.5 py-1 mb-2 sm:mb-3"
                   style={{
                     background: course.tagColor.bg,
                     color: course.tagColor.text,
@@ -170,7 +170,7 @@ export default function CourseSelectionPage() {
                 </span>
 
                 <h2
-                  className="text-xl md:text-2xl font-semibold text-[#111111] tracking-tight leading-tight m-0 mb-3"
+                  className="text-lg sm:text-xl md:text-[1.375rem] font-semibold text-[#111111] tracking-tight leading-tight m-0 mb-1.5 sm:mb-2"
                   style={{
                     fontFamily:
                       "'Newsreader', 'Playfair Display', 'Instrument Serif', serif",
@@ -179,7 +179,7 @@ export default function CourseSelectionPage() {
                   {course.title}
                 </h2>
 
-                <p className="text-[0.8125rem] text-[#787774] leading-relaxed m-0 mb-8">
+                <p className="text-[0.8125rem] text-[#787774] leading-relaxed m-0 mb-3 sm:mb-5">
                   {course.description}
                 </p>
 
@@ -187,7 +187,7 @@ export default function CourseSelectionPage() {
                 <button
                   onClick={() => handleSelect(course.id)}
                   disabled={loading !== null}
-                  className={`w-full flex items-center justify-center gap-2.5 py-3.5 text-sm font-semibold border-none transition-all duration-200 ${
+                  className={`w-full flex items-center justify-center gap-2.5 py-2.5 sm:py-3 text-sm font-semibold border-none transition-all duration-200 ${
                     loading === course.id
                       ? "bg-[#555555] text-white cursor-not-allowed"
                       : loading !== null
