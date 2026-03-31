@@ -5,11 +5,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { authService } from "@/services/auth.service";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
@@ -18,16 +20,26 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const response = await authService.login({ email, password });
-      localStorage.setItem("access_token", response.data.accessToken);
-      localStorage.setItem("user", JSON.stringify(response.data.user.email));
-      router.push("/course-selection");
+      const response = await authService.register({ email, password, name });
+      localStorage.setItem("access_token", response.data.access_token);
+      router.push("/");
     } catch (err: any) {
       setError(
-        err.response?.data?.message || "Đăng nhập thất bại. Vui lòng thử lại.",
+        err.response?.data?.message || "Registration failed. Please try again."
       );
     } finally {
       setLoading(false);
@@ -86,10 +98,10 @@ export default function LoginPage() {
           </Link>
 
           <h1 className="text-3xl font-medium text-[#111111] tracking-tight leading-tight m-0 font-[family-name:var(--font-serif,'Newsreader','Playfair_Display','Instrument_Serif',serif)]">
-            Welcome back
+            Create your account
           </h1>
           <p className="text-[#787774] text-[0.9375rem] leading-relaxed mt-2">
-            Sign in to continue your learning journey
+            Start your learning journey today
           </p>
         </div>
 
@@ -140,6 +152,25 @@ export default function LoginPage() {
 
           {/* Form */}
           <form className="space-y-5" onSubmit={handleSubmit}>
+            {/* Name */}
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-[0.8125rem] font-semibold text-[#2F3437] mb-1.5"
+              >
+                Full Name
+              </label>
+              <input
+                id="name"
+                type="text"
+                placeholder="Your full name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="w-full py-2.5 px-3.5 bg-[#FBFBFA] border border-[#EAEAEA] rounded-md text-sm text-[#2F3437] outline-none transition-all duration-200 box-border focus:border-[#06bbcc] focus:ring-1 focus:ring-[#06bbcc]"
+              />
+            </div>
+
             {/* Email */}
             <div>
               <label
@@ -171,7 +202,7 @@ export default function LoginPage() {
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder="At least 6 characters"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -216,23 +247,52 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Remember + Forgot */}
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="w-3.5 h-3.5 accent-[#06bbcc] rounded-sm"
-                />
-                <span className="text-[0.8125rem] text-[#787774]">
-                  Remember me
-                </span>
-              </label>
-              <Link
-                href="/forgot-password"
-                className="text-[0.8125rem] font-medium text-[#06bbcc] no-underline transition-colors duration-200 hover:text-[#05a5b5]"
+            {/* Confirm Password */}
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="block text-[0.8125rem] font-semibold text-[#2F3437] mb-1.5"
               >
-                Forgot password?
-              </Link>
+                Confirm Password
+              </label>
+              <input
+                id="confirmPassword"
+                type="password"
+                placeholder="Re-enter your password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className="w-full py-2.5 px-3.5 bg-[#FBFBFA] border border-[#EAEAEA] rounded-md text-sm text-[#2F3437] outline-none transition-all duration-200 box-border focus:border-[#06bbcc] focus:ring-1 focus:ring-[#06bbcc]"
+              />
+            </div>
+
+            {/* Terms */}
+            <div className="flex items-start gap-2">
+              <input
+                type="checkbox"
+                id="terms"
+                required
+                className="w-3.5 h-3.5 accent-[#06bbcc] rounded-sm mt-0.5 shrink-0"
+              />
+              <label
+                htmlFor="terms"
+                className="text-[0.8125rem] text-[#787774] leading-snug cursor-pointer"
+              >
+                I agree to the{" "}
+                <Link
+                  href="/terms"
+                  className="text-[#06bbcc] no-underline font-medium hover:text-[#05a5b5]"
+                >
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link
+                  href="/privacy"
+                  className="text-[#06bbcc] no-underline font-medium hover:text-[#05a5b5]"
+                >
+                  Privacy Policy
+                </Link>
+              </label>
             </div>
 
             {/* Error Message */}
@@ -252,19 +312,19 @@ export default function LoginPage() {
                   : "bg-[#06bbcc] cursor-pointer hover:bg-[#05a5b5] active:scale-[0.98]"
               }`}
             >
-              {loading ? "Signing in..." : "Sign in"}
+              {loading ? "Creating account..." : "Create account"}
             </button>
           </form>
         </div>
 
-        {/* Sign Up Link */}
+        {/* Sign In Link */}
         <p className="text-center mt-7 text-[0.8125rem] text-[#787774]">
-          Don&apos;t have an account?{" "}
+          Already have an account?{" "}
           <Link
-            href="/register"
+            href="/login"
             className="font-semibold text-[#06bbcc] no-underline transition-colors duration-200 hover:text-[#05a5b5]"
           >
-            Create an account
+            Sign in
           </Link>
         </p>
       </div>
